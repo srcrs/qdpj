@@ -65,8 +65,8 @@ public class App {
         try {
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
-            chromeOptions.setHeadless(Boolean.FALSE);
-            System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
+            chromeOptions.setHeadless(Boolean.TRUE);
+            System.setProperty("webdriver.chrome.driver", "chromedriver");
             //如果不采用无界面模式则不需要使用chromeOptions参数
             //这句话相当于创建了一个窗口
             driver = new ChromeDriver(chromeOptions);
