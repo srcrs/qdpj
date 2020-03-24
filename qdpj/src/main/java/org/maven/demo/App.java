@@ -16,10 +16,13 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Random;
+
 
 public class App {
     static Sheet sheet;
     static Cell cell_1;
+    static char str[] = {'0','1','2','3','4','5','6','7','8','9'};
     //设置APPID/AK/SK
     public static final String APP_ID = "19037000";
     public static final String API_KEY = "uP5HuaXUrZt2x7Qhu9jDr1bt";
@@ -38,26 +41,6 @@ public class App {
         }
     }
     /*
-    调用百度API接口识别验证码
-     */
-    public static String ocrBaidu() {
-        // 初始化一个AipOcr
-        AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
-        String OriginalImg = "oi.jpg";
-        //识别样本输出地址
-        String ocrResult = "or.jpg";
-        //去噪点
-        org.maven.demo.App.removeBackground(OriginalImg, ocrResult);
-        // 可选：设置网络连接参数
-        client.setConnectionTimeoutInMillis(2000);
-        client.setSocketTimeoutInMillis(60000);
-        //  调用接口
-        String path = ocrResult;
-        JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
-        //返回正确的验证码
-        return res.getJSONArray("words_result").getJSONObject(0).get("words").toString().trim();
-    }
-    /*
     开始的地方
      */
     public static void run() {
@@ -66,7 +49,7 @@ public class App {
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
             chromeOptions.setHeadless(Boolean.TRUE);
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
+            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
             //如果不采用无界面模式则不需要使用chromeOptions参数
             //这句话相当于创建了一个窗口
             driver = new ChromeDriver(chromeOptions);
@@ -81,20 +64,36 @@ public class App {
                 Thread.sleep(4000);
                 WebElement phone = driver.findElement(By.xpath("//*[@id=\"ipt1\"]"));
                 phone.sendKeys(cell_1.getContents().trim());
-                Thread.sleep(4000);
                 WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
-                org.apache.commons.io.FileUtils.copyFile(elementSnapshot(element), new File(OriginalImg));
-                password = ocrBaidu();
-                System.out.println(password);
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
-                pass.sendKeys(password);
-                if(isok(driver)){
-                    Thread.sleep(4000);
-                    driver.findElement(By.xpath("/html/body/div[3]/div/div[3]")).click();
-                    Thread.sleep(10000);
-                    n--;
+                int ran = (int)(Math.random()*10);
+                System.out.println(ran);
+                boolean flag = false;
+                for(int i=0;i<10;i++){
+                    for(int j=0;j<10;j++){
+                        for(int k=0;k<10;k++){
+                            pass.sendKeys(""+ran+str[i]+str[j]+str[k]);
+                            if(isok(driver)){
+                                System.out.println(""+ran+str[i]+str[j]+str[k]);
+                                driver.findElement(By.xpath("/html/body/div[3]/div/div[3]")).click();
+                                Thread.sleep(4000);
+                                n--;
+                                flag = true;
+                                break;
+                            }
+                            else{
+                                pass.clear();
+                            }
+                        }
+                        if(flag){
+                            break;
+                        }
+                    }
+                    if(flag){
+                        break;
+                    }
                 }
-            } while(n!=0&&m!=6);
+            } while(n!=0);
             driver.close();
         } catch (Exception e) {
             driver.close();
@@ -112,86 +111,6 @@ public class App {
         }
         else{
             return false;
-        }
-    }
-    /*
-    降噪并二值化
-     */
-    public static void removeBackground(String imgUrl, String resUrl) {
-        //定义一个临界阈值
-        int threshold = 300;
-        try {
-            BufferedImage img = ImageIO.read(new File(imgUrl));
-            int width = img.getWidth();
-            int height = img.getHeight();
-            for (int i = 1; i < width; i++) {
-                for (int x = 0; x < width; x++) {
-                    for (int y = 0; y < height; y++) {
-                        Color color = new Color(img.getRGB(x, y));
-//                        System.out.println("red:" + color.getRed() + " | green:" + color.getGreen() + " | blue:" + color.getBlue());
-                        int num = color.getRed() + color.getGreen() + color.getBlue();
-                        if (num >= threshold) {
-                            img.setRGB(x, y, Color.WHITE.getRGB());
-                        }
-                    }
-                }
-            }
-            for (int i = 1; i < width; i++) {
-                Color color1 = new Color(img.getRGB(i, 1));
-                int num1 = color1.getRed() + color1.getGreen() + color1.getBlue();
-                for (int x = 0; x < width; x++) {
-                    for (int y = 0; y < height; y++) {
-                        Color color = new Color(img.getRGB(x, y));
-
-                        int num = color.getRed() + color.getGreen() + color.getBlue();
-                        if (num == num1) {
-                            img.setRGB(x, y, Color.BLACK.getRGB());
-                        } else {
-                            img.setRGB(x, y, Color.WHITE.getRGB());
-                        }
-                    }
-                }
-            }
-            File file = new File(resUrl);
-            if (!file.exists()) {
-                File dir = file.getParentFile();
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-                try {
-                    file.createNewFile();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            ImageIO.write(img, "jpg", file);
-        } catch (Exception e) {
-            System.out.println("降噪二值化部分");
-        }
-    }
-    /*
-    截验证码部分图片
-     */
-    public static File elementSnapshot(WebElement element){
-        try{
-            //创建全屏截图
-            WrapsDriver wrapsDriver = (WrapsDriver)element;
-            File screen = ((TakesScreenshot)wrapsDriver.getWrappedDriver()).getScreenshotAs(OutputType.FILE);
-            BufferedImage image = ImageIO.read(screen);
-            //获取元素的高度、宽度
-            int width = element.getSize().getWidth();
-            int height = element.getSize().getHeight();
-
-            //创建一个矩形使用上面的高度，和宽度
-            Rectangle rect = new Rectangle(width, height);
-            //元素坐标
-            Point p = element.getLocation();
-            BufferedImage img = image.getSubimage(p.getX(), p.getY()+10, rect.width-15, rect.height-14);
-            ImageIO.write(img, "jpg", screen);
-            return screen;
-        } catch (Exception e){
-            System.out.println("截取验证码图片");
-            return null;
         }
     }
 }
