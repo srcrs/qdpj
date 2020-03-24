@@ -27,7 +27,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         try{
-            Workbook book = Workbook.getWorkbook(new File("test.xls"));
+            Workbook book = Workbook.getWorkbook(new File("/test.xls"));
             sheet=book.getSheet(0);
             for(int i=1;i<sheet.getColumns();i++){
                 cell_1 = sheet.getCell(8,i);
@@ -43,16 +43,16 @@ public class App {
     public static String ocrBaidu() {
         // 初始化一个AipOcr
         AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
-        String OriginalImg = "oi.jpg";
+        String OriginalImg = "/oi.jpg";
         //识别样本输出地址
-        String ocrResult = "or.jpg";
+        String ocrResult = "/or.jpg";
         //去噪点
         org.maven.demo.App.removeBackground(OriginalImg, ocrResult);
         // 可选：设置网络连接参数
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
         //  调用接口
-        String path = "or.jpg";
+        String path = ocrResult;
         JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
         //返回正确的验证码
         return res.getJSONArray("words_result").getJSONObject(0).get("words").toString().trim();
@@ -83,7 +83,7 @@ public class App {
                 phone.sendKeys(cell_1.getContents().trim());
                 Thread.sleep(4000);
                 WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
-                org.apache.commons.io.FileUtils.copyFile(elementSnapshot(element), new File("oi.jpg"));
+                org.apache.commons.io.FileUtils.copyFile(elementSnapshot(element), new File(OriginalImg));
                 password = ocrBaidu();
                 System.out.println(password);
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
