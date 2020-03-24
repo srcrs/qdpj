@@ -62,8 +62,7 @@ public class App {
                 phone.sendKeys(cell_1.getContents().trim());
                 WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
-                int ran = (int)(Math.random()*10);
-                System.out.println(ran);
+                int ran = 0;
                 boolean flag = false;
                 for(int i=0;i<10;i++){
                     for(int j=0;j<10;j++){
