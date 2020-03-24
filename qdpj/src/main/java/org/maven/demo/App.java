@@ -23,10 +23,6 @@ public class App {
     static Sheet sheet;
     static Cell cell_1;
     static char str[] = {'0','1','2','3','4','5','6','7','8','9'};
-    //设置APPID/AK/SK
-    public static final String APP_ID = "19037000";
-    public static final String API_KEY = "uP5HuaXUrZt2x7Qhu9jDr1bt";
-    public static final String SECRET_KEY = "vYEBrlRyendtDkW1GMz3Mjl5yl7rVbSF";
 
     public static void main(String[] args) throws Exception {
         try{
@@ -49,7 +45,7 @@ public class App {
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
             chromeOptions.setHeadless(Boolean.TRUE);
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "chromedriver");
             //如果不采用无界面模式则不需要使用chromeOptions参数
             //这句话相当于创建了一个窗口
             driver = new ChromeDriver(chromeOptions);
@@ -66,8 +62,7 @@ public class App {
                 phone.sendKeys(cell_1.getContents().trim());
                 WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
-                int ran = (int)(Math.random()*10);
-                System.out.println(ran);
+                int ran = 0;
                 boolean flag = false;
                 for(int i=0;i<10;i++){
                     for(int j=0;j<10;j++){
