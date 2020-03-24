@@ -27,7 +27,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         try{
-            Workbook book = Workbook.getWorkbook(new File("/test.xls"));
+            Workbook book = Workbook.getWorkbook(new File("test.xls"));
             sheet=book.getSheet(0);
             for(int i=1;i<sheet.getColumns();i++){
                 cell_1 = sheet.getCell(8,i);
@@ -43,9 +43,9 @@ public class App {
     public static String ocrBaidu() {
         // 初始化一个AipOcr
         AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
-        String OriginalImg = "/oi.jpg";
+        String OriginalImg = "oi.jpg";
         //识别样本输出地址
-        String ocrResult = "/or.jpg";
+        String ocrResult = "or.jpg";
         //去噪点
         org.maven.demo.App.removeBackground(OriginalImg, ocrResult);
         // 可选：设置网络连接参数
