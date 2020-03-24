@@ -53,7 +53,7 @@ public class App {
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
         //  调用接口
-        String path = "D:\\or.jpg";
+        String path = "or.jpg";
         JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
         //返回正确的验证码
         return res.getJSONArray("words_result").getJSONObject(0).get("words").toString().trim();
@@ -84,7 +84,7 @@ public class App {
                 phone.sendKeys(cell_1.getContents().trim());
                 Thread.sleep(4000);
                 WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
-                org.apache.commons.io.FileUtils.copyFile(elementSnapshot(element), new File("D:/oi.jpg"));
+                org.apache.commons.io.FileUtils.copyFile(elementSnapshot(element), new File("oi.jpg"));
                 password = ocrBaidu();
                 System.out.println(password);
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
@@ -167,27 +167,32 @@ public class App {
             }
             ImageIO.write(img, "jpg", file);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("二值化失败");
         }
     }
     /*
     截验证码部分图片
      */
-    public static File elementSnapshot(WebElement element) throws Exception {
-        //创建全屏截图
-        WrapsDriver wrapsDriver = (WrapsDriver)element;
-        File screen = ((TakesScreenshot)wrapsDriver.getWrappedDriver()).getScreenshotAs(OutputType.FILE);
-        BufferedImage image = ImageIO.read(screen);
-        //获取元素的高度、宽度
-        int width = element.getSize().getWidth();
-        int height = element.getSize().getHeight();
+    public static File elementSnapshot(WebElement element){
+        try{
+            //创建全屏截图
+            WrapsDriver wrapsDriver = (WrapsDriver)element;
+            File screen = ((TakesScreenshot)wrapsDriver.getWrappedDriver()).getScreenshotAs(OutputType.FILE);
+            BufferedImage image = ImageIO.read(screen);
+            //获取元素的高度、宽度
+            int width = element.getSize().getWidth();
+            int height = element.getSize().getHeight();
 
-        //创建一个矩形使用上面的高度，和宽度
-        Rectangle rect = new Rectangle(width, height);
-        //元素坐标
-        Point p = element.getLocation();
-        BufferedImage img = image.getSubimage(p.getX(), p.getY()+10, rect.width-15, rect.height-14);
-        ImageIO.write(img, "png", screen);
-        return screen;
+            //创建一个矩形使用上面的高度，和宽度
+            Rectangle rect = new Rectangle(width, height);
+            //元素坐标
+            Point p = element.getLocation();
+            BufferedImage img = image.getSubimage(p.getX(), p.getY()+10, rect.width-15, rect.height-14);
+            ImageIO.write(img, "jpg", screen);
+            return screen;
+        } catch (Exception e){
+            System.out.println("截取验证码失败");
+            return null;
+        }
     }
 }
