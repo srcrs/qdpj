@@ -22,8 +22,6 @@ jobs:
     - name: Build with Maven
       run: |
         cd qdpj
-        wget -c https://github.com/srcrs/server/blob/master/xgzbd/chromedriver_linux64.zip -O chromedriver_linux64.zip
-        wget -c https://github.com/srcrs/server/blob/master/xgzbd/google-chrome-stable_current_amd64.deb -O google-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb
         sudo apt-get -f install
         unzip chromedriver_linux64.zip
