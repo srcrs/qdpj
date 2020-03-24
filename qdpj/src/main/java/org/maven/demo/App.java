@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 
-
 public class App {
     static Sheet sheet;
     static Cell cell_1;
@@ -48,7 +47,7 @@ public class App {
         //识别样本输出地址
         String ocrResult = "or.jpg";
         //去噪点
-        App.removeBackground(OriginalImg, ocrResult);
+        org.maven.demo.App.removeBackground(OriginalImg, ocrResult);
         // 可选：设置网络连接参数
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
@@ -66,8 +65,8 @@ public class App {
         try {
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
-            chromeOptions.setHeadless(Boolean.TRUE);
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
+            chromeOptions.setHeadless(Boolean.FALSE);
+            System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
             //如果不采用无界面模式则不需要使用chromeOptions参数
             //这句话相当于创建了一个窗口
             driver = new ChromeDriver(chromeOptions);
@@ -167,7 +166,7 @@ public class App {
             }
             ImageIO.write(img, "jpg", file);
         } catch (Exception e) {
-            System.out.println("二值化失败");
+            System.out.println("降噪二值化部分");
         }
     }
     /*
@@ -191,7 +190,7 @@ public class App {
             ImageIO.write(img, "jpg", screen);
             return screen;
         } catch (Exception e){
-            System.out.println("截取验证码失败");
+            System.out.println("截取验证码图片");
             return null;
         }
     }
