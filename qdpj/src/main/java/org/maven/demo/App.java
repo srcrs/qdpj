@@ -45,7 +45,7 @@ public class App {
                 run();
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
     /*
@@ -80,11 +80,6 @@ public class App {
                 m++;
                 driver.get("http://m.client.10010.com/sma-lottery/qpactivity/qingpiindex");
                 Thread.sleep(4000);
-                driver.navigate().refresh();
-                Thread.sleep(1000);
-                driver.navigate().refresh();
-                Thread.sleep(1000);
-                driver.navigate().refresh();
                 driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[3]/div")).click();
                 Thread.sleep(4000);
                 WebElement phone = driver.findElement(By.xpath("//*[@id=\"ipt1\"]"));
@@ -104,6 +99,7 @@ public class App {
             } while(n!=0);
         } catch (Exception e) {
             System.out.println(cell_1.getContents().trim());
+            e.printStackTrace();
         }
     }
     /*
@@ -172,6 +168,7 @@ public class App {
             ImageIO.write(img, "png", file);
         } catch (Exception e) {
             System.out.println("降噪二值化部分");
+            e.printStackTrace();
         }
     }
     /*
@@ -196,6 +193,7 @@ public class App {
             return screen;
         } catch (Exception e){
             System.out.println("截取验证码图片");
+            e.printStackTrace();
             return null;
         }
     }
