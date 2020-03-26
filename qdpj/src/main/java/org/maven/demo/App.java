@@ -28,7 +28,7 @@ public class App {
         try{
             Workbook book = Workbook.getWorkbook(new File("test.xls"));
             sheet=book.getSheet(0);
-            for(int i=1;i<sheet.getRows();i++){
+            for(int i=1;i<2;i++){
                 cell_1 = sheet.getCell(8,i);
                 run();
             }
@@ -64,6 +64,7 @@ public class App {
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
                 int ran = 0;
                 boolean flag = false;
+                System.out.println(ran);
                 for(int i=0;i<10;i++){
                     for(int j=0;j<10;j++){
                         for(int k=0;k<10;k++){
