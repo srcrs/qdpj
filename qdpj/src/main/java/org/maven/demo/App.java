@@ -55,34 +55,30 @@ public class App {
             do {
                 m++;
                 driver.get("http://m.client.10010.com/sma-lottery/qpactivity/qingpiindex");
-                Thread.sleep(4000);
+                Thread.sleep(1000);
                 driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[3]/div")).click();
-                Thread.sleep(4000);
+                Thread.sleep(1000);
                 WebElement phone = driver.findElement(By.xpath("//*[@id=\"ipt1\"]"));
                 phone.sendKeys(cell_1.getContents().trim());
-                WebElement element = driver.findElement(By.xpath("//*[@id=\"tpyzm\"]"));
                 WebElement pass = driver.findElement(By.xpath("//*[@id=\"ipt2\"]"));
-                int ran = (int)(Math.random()*10);
+                //     int ran = (int)(Math.random()*10);
+                int ran = 4;
                 boolean flag = false;
-                System.out.println(ran);
+                System.out.println(m+"-------------->"+ran);
                 for(int i=0;i<10;i++){
                     for(int j=0;j<10;j++){
-                        for(int k=0;k<10;k++){
-                            pass.sendKeys(""+ran+str[i]+str[j]+str[k]);
-                            if(isok(driver)){
-                                System.out.println(""+ran+str[i]+str[j]+str[k]);
-                                driver.findElement(By.xpath("/html/body/div[3]/div/div[3]")).click();
-                                Thread.sleep(4000);
-                                n--;
-                                flag = true;
-                                break;
-                            }
-                            else{
-                                pass.clear();
-                            }
-                        }
-                        if(flag){
+                        pass.sendKeys(""+str[i]+str[j]+ran+ran);
+                        if(isok(driver)){
+                            System.out.println(""+str[i]+str[j]+ran+ran);
+                            driver.findElement(By.xpath("/html/body/div[3]/div/div[3]")).click();
+                            Thread.sleep(4000);
+                            n--;
+                            m=0;
+                            flag = true;
                             break;
+                        }
+                        else{
+                            pass.clear();
                         }
                     }
                     if(flag){
