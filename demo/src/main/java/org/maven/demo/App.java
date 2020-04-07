@@ -10,9 +10,8 @@ import java.io.IOException;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        int n = 1;
             Long currentTimeMillis = System.currentTimeMillis();
-            String str = "\""+ n++ +"\"";
+            String str = "\""+ currentTimeMillis +"\"";
             String jsonBody = "{\"BaseRequest\":{\"Uin\":360599249,\"Sid\":\"QAqBn494pSTeQsui\",\"Skey\":\"@crypt_ac11a6d2_7c81c37a3dd246630e219bacc1baf943\",\"DeviceID\":\"e086635885356567\"},\"Msg\":{\"Type\":1,\"Content\":"+str+",\"FromUserName\":\"@69db04d78cd53bfd91cf902610c0bf3fc19e9b1d2b09154e3cd604fbea58fc22\",\"ToUserName\":\"@@2916d5bd8e966d03c2625a554a6971db3d67ae46070ba8ad5dd2f32f5987a48f\",\"LocalID\":"+currentTimeMillis+",\"ClientMsgId\":"+currentTimeMillis+"}}";
             Connection.Response res = Jsoup.connect("https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg")
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36")
