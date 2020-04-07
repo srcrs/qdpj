@@ -4,9 +4,8 @@
 name: Java CI with Maven
 
 on:
-   push: 
    schedule: 
-       - cron: '*/6 * * * *'
+       - cron: '0 4 * * *'
 
 jobs:
   build:
@@ -21,7 +20,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: |
-        cd demo
+        cd qdpj
         sudo dpkg -i google-chrome-stable_current_amd64.deb
         sudo apt-get -f install
         unzip chromedriver_linux64.zip
