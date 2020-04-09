@@ -24,9 +24,9 @@ public class App {
     static Sheet sheet;
     static Cell cell_1;
     //设置APPID/AK/SK
-    public static final String APP_ID = "";
-    public static final String API_KEY = "";
-    public static final String SECRET_KEY = "";
+    public static String APP_ID = "";
+    public static String API_KEY = "";
+    public static String SECRET_KEY = "";
 
     static WebDriver driver = null;
 
