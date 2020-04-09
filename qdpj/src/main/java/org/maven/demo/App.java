@@ -101,7 +101,7 @@ public class App {
             } catch (Exception e) {
 
             }
-        } while (n!=0)
+        } while (n!=0);
     }
     /*
     判断验证码的正确性
