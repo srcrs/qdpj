@@ -100,6 +100,7 @@ public class App {
                 }
             } while(n!=0);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(cell_1.getContents().trim());
         }
     }
