@@ -29,7 +29,4 @@ jobs:
         sudo dpkg -i google-chrome-stable_current_amd64.deb
         sudo apt-get -f install
         unzip chromedriver_linux64.zip
-        mvn compile exec:java -Dexec.mainClass="org.maven.demo.App"
-        echo ${APP_ID}
-        echo ${API_KEY}
-        echo ${SECRET_KEY}
+        mvn compile exec:java -Dexec.mainClass="org.maven.demo.App" -Dexec.args="${APP_ID} ${API_KEY} ${SECRET_KEY}"
