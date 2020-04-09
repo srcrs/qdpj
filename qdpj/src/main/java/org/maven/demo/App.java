@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class App {
@@ -32,10 +31,9 @@ public class App {
     static WebDriver driver = null;
 
     public static void main(String[] args) throws Exception {
-        Scanner scan = new Scanner(System.in);
-        APP_ID = scan.next();
-        API_KEY = scan.next();
-        SECRET_KEY = scan.next();
+        APP_ID = args[0];
+        API_KEY = args[1];
+        SECRET_KEY = args[2];
         try{
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
