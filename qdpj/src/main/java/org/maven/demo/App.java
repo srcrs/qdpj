@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class App {
@@ -24,13 +25,17 @@ public class App {
     static Sheet sheet;
     static Cell cell_1;
     //设置APPID/AK/SK
-    public static final String APP_ID = "19037000";
-    public static final String API_KEY = "uP5HuaXUrZt2x7Qhu9jDr1bt";
-    public static final String SECRET_KEY = "vYEBrlRyendtDkW1GMz3Mjl5yl7rVbSF";
+    public static final String APP_ID = "";
+    public static final String API_KEY = "";
+    public static final String SECRET_KEY = "";
 
     static WebDriver driver = null;
 
     public static void main(String[] args) throws Exception {
+        Scanner scan = new Scanner(System.in);
+        APP_ID = scan.next();
+        API_KEY = scan.next();
+        SECRET_KEY = scan.next();
         try{
             //设置无头模式
             ChromeOptions chromeOptions=new ChromeOptions();
@@ -40,7 +45,8 @@ public class App {
 
             Workbook book = Workbook.getWorkbook(new File("test.xls"));
             sheet=book.getSheet(0);
-            for(int i=1;i<12;i++){
+            long row = sheet.getRows();
+            for(int i=1;i<row;i++){
                 cell_1 = sheet.getCell(8,i);
                 System.out.println("正在为手机号------->"+cell_1.getContents().trim()+"-------抽奖");
                 run();
