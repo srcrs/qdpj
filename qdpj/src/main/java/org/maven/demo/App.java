@@ -74,11 +74,11 @@ public class App {
     开始的地方
      */
     public static void run() {
-        try {
-            String password;
-            int n = 3;
-            int m = 0;
-            do {
+        String password;
+        int n = 3;
+        int m = 0;
+        do {
+            try {
                 m++;
                 driver.get("http://m.client.10010.com/sma-lottery/qpactivity/qingpiindex");
                 Thread.sleep(1000);
@@ -98,11 +98,10 @@ public class App {
                     Thread.sleep(4000);
                     n--;
                 }
-            } while(n!=0);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(cell_1.getContents().trim());
-        }
+            } catch (Exception e) {
+
+            }
+        } while (n!=0)
     }
     /*
     判断验证码的正确性
