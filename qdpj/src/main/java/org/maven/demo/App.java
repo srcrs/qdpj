@@ -42,6 +42,7 @@ public class App {
             sheet=book.getSheet(0);
             for(int i=1;i<12;i++){
                 cell_1 = sheet.getCell(8,i);
+                System.out.println("正在为手机号------->"+cell_1.getContents().trim()+"-------抽奖");
                 run();
             }
             driver.close();
@@ -93,7 +94,6 @@ public class App {
                 System.out.println(m+"------------->"+password);
                 pass.sendKeys(password);
                 if(isok(driver)){
-                    System.out.println(password);
                     driver.findElement(By.xpath("/html/body/div[3]/div/div[3]")).click();
                     Thread.sleep(4000);
                     n--;
