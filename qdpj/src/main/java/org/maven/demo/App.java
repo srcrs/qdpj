@@ -45,7 +45,7 @@ public class App {
             sheet=book.getSheet(0);
             long row = sheet.getRows();
             for(int i=1;i<row;i++){
-                cell_1 = sheet.getCell(11,i);
+                cell_1 = sheet.getCell(8,i);
                 System.out.println("正在为手机号------->"+cell_1.getContents().trim().substring(0,4)+"***"+cell_1.getContents().trim().substring(7,11)+"-------抽奖");
                 run();
             }
